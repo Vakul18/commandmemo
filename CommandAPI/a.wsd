@@ -1,0 +1,41 @@
+@startuml my
+package Siemens.Simatic.Lang.Library.User.dll  {
+ package Siemens.Simatic.Lang.Library.User.WFL {
+   class AxBlockConistencyCheckerDlc <<Dlc>>
+
+ }
+
+ package Siemens.Simatic.Lang.Library.User.DOLInternal{
+   class AxBlockConsistencyCheckerFactory
+   class AxBlockDependencyLinkConsistencyChecker
+   interface IAxBlockConsistencyChecker
+
+   AxBlockDependencyLinkConsistencyChecker--|> IAxBlockConsistencyChecker
+   AxBlockConsistencyCheckerFactory "1"..>"*" IAxBlockConsistencyChecker 
+   AxBlockDependencyLinkConsistencyChecker--* AxBlockConsistencyCheckerFactory 
+ }
+ 
+ package Siemens.Simatic.Lang.Library.User.DACPrivate {
+   class CoreObjectServiceAccessorWrapper
+ }
+  
+ AxBlockDependencyLinkConsistencyChecker"1"..>"1" CoreObjectServiceAccessorWrapper
+ AxBlockConistencyCheckerDlc "1"..>"1" AxBlockConsistencyCheckerFactory
+ AxBlockConistencyCheckerDlc "1"..>"*" IAxBlockConsistencyChecker
+
+}
+
+package Siemens.Simatic.lang.PlInternal.dll{
+ package Siemens.Simatic.PlcLanguages.Consistency{
+   class BaseConsistencyProviderDlc
+   interface ICheckObject
+ }
+}
+
+
+
+BaseConsistencyProviderDlc <|-- AxBlockConistencyCheckerDlc 
+ICheckObject<|-- AxBlockConistencyCheckerDlc 
+
+Hide members
+@enduml
